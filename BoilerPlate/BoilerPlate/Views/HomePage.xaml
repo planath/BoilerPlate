@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MasterDetailPage  xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BoilerPlate.Views.HomePage">
+  <MasterDetailPage.Master>
+    <ContentPage Title="Master" Padding="0, 20, 0, 0" Icon="menu.png">
+      <ContentPage.Content>
+        <StackLayout VerticalOptions="FillAndExpand">
+          <ListView x:Name="ListView" VerticalOptions="FillAndExpand" ItemsSource="{Binding PageLinks}" ItemSelected="ListView_OnItemSelected"></ListView>
+        </StackLayout>
+      </ContentPage.Content>
+    </ContentPage>
+  </MasterDetailPage.Master>
+  <MasterDetailPage.Detail>
+    <NavigationPage>
+      <x:Arguments>
+        <Page>
+          <ContentPage Title="Detail">
+            <ContentPage.Content>
+              <StackLayout>
+                <Label Text="Select a page" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+              </StackLayout>
+            </ContentPage.Content>
+          </ContentPage>
+        </Page>
+      </x:Arguments>
+    </NavigationPage>
+  </MasterDetailPage.Detail>
+</MasterDetailPage>
