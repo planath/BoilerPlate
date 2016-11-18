@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using BoilerPlate.ViewModel;
+﻿using BoilerPlate.ViewModel;
 using BoilerPlate.Views;
 using Xamarin.Forms;
 

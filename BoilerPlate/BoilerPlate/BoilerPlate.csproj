@@ -42,14 +42,15 @@
     <Compile Include="Service\IImagesService.cs" />
     <Compile Include="Service\ImagesService.cs" />
     <Compile Include="Service\IPagesMasterService.cs" />
+    <Compile Include="Service\NavigationService.cs" />
     <Compile Include="Service\PagesMasterService.cs" />
     <Compile Include="ViewModel\GridViewModel.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\ClickViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Compile Include="Views\GridPage.cs" />
-    <Compile Include="Views\GridPortraitPage.xaml.cs">
-      <DependentUpon>GridPortraitPage.xaml</DependentUpon>
+    <Compile Include="Views\GridCsPage.cs" />
+    <Compile Include="Views\GridXamlPage.xaml.cs">
+      <DependentUpon>GridXamlPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
@@ -110,7 +111,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\GridPortraitPage.xaml">
+    <EmbeddedResource Include="Views\GridXamlPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

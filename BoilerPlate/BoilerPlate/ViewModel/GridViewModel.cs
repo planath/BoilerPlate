@@ -16,23 +16,14 @@ namespace BoilerPlate.ViewModel
         public IList<Picture> Pictures { get; set; }
         public Picture Picture0 { get; set; }
         public Picture Picture1 { get; set; }
-
         public Picture Picture2 { get; set; }
-
         public Picture Picture3 { get; set; }
-
         public Picture Picture4 { get; set; }
-
         public Picture Picture5 { get; set; }
-
         public Picture Picture10 { get; set; }
-
         public Picture Picture9 { get; set; }
-
         public Picture Picture8 { get; set; }
-
         public Picture Picture7 { get; set; }
-
         public Picture Picture6 { get; set; }
 
         public void Init()

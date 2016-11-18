@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using BoilerPlate.ViewModel;
+﻿using BoilerPlate.ViewModel;
 using Xamarin.Forms;
 
 namespace BoilerPlate.Views
 {
-    public class GridPage : ContentPage
+    public class GridCsPage : ContentPage
     {
         private GridViewModel Vm => App.Locator.Grid;
         private Grid _portraitGrid;
         private Grid _landscapeGrid;
 
-        public GridPage()
+        public GridCsPage()
         {
             Vm.Init();
             BindingContext = Vm;
