@@ -5,7 +5,7 @@
     <RelativeLayout
       HorizontalOptions="FillAndExpand"
       VerticalOptions="FillAndExpand"
-      BackgroundColor="Aqua">
+      BackgroundColor="Gray">
       <Image
         x:Name="ImageToBeResponsive"
         Aspect="AspectFill"
@@ -16,4 +16,3 @@
     </RelativeLayout>
   </ContentView.Content>
 </ContentView>
-<!--Source="{Binding FileName}"-->

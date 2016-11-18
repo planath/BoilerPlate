@@ -9,7 +9,8 @@ using Xamarin.Forms;
 namespace BoilerPlate.Views
 {
     public class GridPage : ContentPage
-    {private GridViewModel Vm => App.Locator.Grid;
+    {
+        private GridViewModel Vm => App.Locator.Grid;
         private Grid _portraitGrid;
         private Grid _landscapeGrid;
 

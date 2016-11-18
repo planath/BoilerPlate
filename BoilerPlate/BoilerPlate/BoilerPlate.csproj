@@ -48,6 +48,9 @@
     <Compile Include="ViewModel\ClickViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Views\GridPage.cs" />
+    <Compile Include="Views\GridPortraitPage.xaml.cs">
+      <DependentUpon>GridPortraitPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
@@ -102,6 +105,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\ImageResponsive.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\GridPortraitPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

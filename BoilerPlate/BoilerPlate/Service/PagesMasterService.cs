@@ -11,7 +11,8 @@ namespace BoilerPlate.Service
             return new List<PageLink>
             {
                 new PageLink("Click Counter", new ClickPage()),
-                new PageLink("Grid Example", new GridPage())
+                new PageLink("Grid from Code", new GridPage()),
+                new PageLink("Grid from XAML", new GridPortraitPage())
             };
         }
     }
