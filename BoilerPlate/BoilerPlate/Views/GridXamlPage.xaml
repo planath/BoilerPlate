@@ -3,17 +3,12 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
   xmlns:views="clr-namespace:BoilerPlate.Views;assembly=BoilerPlate"
   x:Class="BoilerPlate.Views.GridXamlPage">
-  <AbsoluteLayout>
-    <Label 
-      BackgroundColor="#fefedd" 
-      Text="affenzirkus" 
-      HorizontalOptions="FillAndExpand" 
-      HorizontalTextAlignment="Center" 
-      VerticalTextAlignment="Center"
-      AbsoluteLayout.LayoutBounds="0,0,1,0.3" AbsoluteLayout.LayoutFlags="All" />
-
-    <Grid x:Name="GridWrapper" VerticalOptions="Fill" HorizontalOptions="FillAndExpand"
-          AbsoluteLayout.LayoutBounds="0,1,1,0.66" AbsoluteLayout.LayoutFlags="All">
+  <ScrollView>
+    <Grid x:Name="GridWrapper"
+          VerticalOptions="FillAndExpand"
+          HorizontalOptions="FillAndExpand"
+          ColumnSpacing="1"
+          RowSpacing="1">
       <Grid.RowDefinitions>
         <RowDefinition Height="*"/>
         <RowDefinition Height="2*"/>
@@ -29,33 +24,44 @@
         <ColumnDefinition Width="*"/>
       </Grid.ColumnDefinitions>
       <views:ImageResponsive
+        x:Name="Picture0"
         ImageSource="{Binding Picture0.FileName}"
         Grid.Row="0"
         Grid.Column="0"
         Grid.ColumnSpan="2"/>
       <views:ImageResponsive
+        
+        x:Name="Picture1"
         ImageSource="{Binding Picture1.FileName}"
         Grid.Row="0"
         Grid.Column="2"
         Grid.ColumnSpan="2"/>
       <views:ImageResponsive
+        
+        x:Name="Picture3"
         ImageSource="{Binding Picture3.FileName}"
         Grid.Row="0"
         Grid.Column="4"
         Grid.ColumnSpan="2"/>
 
       <views:ImageResponsive
+        
+        x:Name="Picture2"
         ImageSource="{Binding Picture2.FileName}"
         Grid.Row="1"
         Grid.Column="0"
         Grid.ColumnSpan="6"/>
 
       <views:ImageResponsive
+        
+        x:Name="Picture4"
         ImageSource="{Binding Picture4.FileName}"
         Grid.Row="2"
         Grid.Column="0"
         Grid.ColumnSpan="3"/>
       <views:ImageResponsive
+        
+        x:Name="Picture5"
         ImageSource="{Binding Picture5.FileName}"
         Grid.Row="2"
         Grid.Column="3"
@@ -63,17 +69,23 @@
         Grid.RowSpan="2"/>
 
       <views:ImageResponsive
+        
+        x:Name="Picture6"
         ImageSource="{Binding Picture6.FileName}"
         Grid.Row="3"
         Grid.Column="0"/>
       <views:ImageResponsive
+        
+        x:Name="Picture7"
         ImageSource="{Binding Picture7.FileName}"
         Grid.Row="3"
         Grid.Column="1"/>
       <views:ImageResponsive
+        
+        x:Name="Picture8"
         ImageSource="{Binding Picture8.FileName}"
         Grid.Row="3"
         Grid.Column="2"/>
     </Grid>
-  </AbsoluteLayout>
+  </ScrollView>
 </ContentPage>
