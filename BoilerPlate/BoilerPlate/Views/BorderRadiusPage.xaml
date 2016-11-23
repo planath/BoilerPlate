@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:BoilerPlate.Views;assembly=BoilerPlate"
              x:Class="BoilerPlate.Views.BorderRadiusPage">
   <StackLayout
     Orientation="Vertical"
@@ -8,16 +9,17 @@
     VerticalOptions="FillAndExpand"
     Spacing="10">
     <Label Text="BorderRadius through custom bound properties and custom Renderer for iOS" VerticalOptions="Center" HorizontalOptions="Center" />
-    <BoxView 
+    <views:RoundedBoxView 
       HorizontalOptions="Center"
       HeightRequest="{Binding BoxLength}"
       WidthRequest="{Binding BoxLength}"
-      Color="Lime"/>
+      Color="Red"
+      CornerRadius="{Binding BorderRadius}"/>
     <Slider
       Minimum="0"
-      Maximum="1"
+      Maximum="100"
       Value="{Binding SliderValue, Mode=TwoWay}"
       x:Name="SliderRadius"/>
-    <Label Text="{Binding BorderRadius}" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="Aqua" />
+    <Label Text="{Binding SliderValue, StringFormat='The radius is {0:F0} %'}" VerticalOptions="Center" HorizontalOptions="Center" />
   </StackLayout>
 </ContentPage>

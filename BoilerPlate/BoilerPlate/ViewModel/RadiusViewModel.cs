@@ -5,15 +5,9 @@ namespace BoilerPlate.ViewModel
 {
     public class RadiusViewModel: ViewModelBase
     {
-        private readonly int DEFINED_BOX_LENGTH = 150;
+        private readonly int DEFINED_BOX_LENGTH = 200;
         private double _borderRadius;
         private double _sliderValue;
-
-        public RadiusViewModel()
-        {
-            //SliderChangedCommand = new RelayCommand(SetRadius);
-        }
-
         public RelayCommand SliderChangedCommand { get; set; }
         public int BoxLength => DEFINED_BOX_LENGTH;
 
@@ -32,17 +26,17 @@ namespace BoilerPlate.ViewModel
         {
             get { return _borderRadius; }
             // Property needs to be set directly from slider.
-            // Value between 0 and 1 calculates the according radius.
+            // Value is in percent [0,100] and calculates the radius accordingly.
             set
             {
-                _borderRadius = (DEFINED_BOX_LENGTH/2) * value;
+                _borderRadius = (DEFINED_BOX_LENGTH/2) / 100 * value;
                 RaisePropertyChanged(nameof(BorderRadius));
             }
         }
 
         public void Init()
         {
-            SliderValue = 0.5;
+            SliderValue = 75;
         }
         //private void SetRadius()
         //{

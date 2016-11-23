@@ -69,6 +69,7 @@
     <Compile Include="Views\ImageResponsive.xaml.cs">
       <DependentUpon>ImageResponsive.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\RoundedBoxView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GettingStarted.Xamarin" />
