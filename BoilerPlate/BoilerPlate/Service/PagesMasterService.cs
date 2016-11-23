@@ -12,7 +12,8 @@ namespace BoilerPlate.Service
             {
                 new PageLink("Click Counter", new ClickPage()),
                 new PageLink("Grid - Orientation aware", new GridCsPage()),
-                new PageLink("Grid from XAML", new GridXamlPage())
+                new PageLink("Grid from XAML", new GridXamlPage()),
+                new PageLink("Custom iOS Cell", new FancyCellPage())
             };
         }
     }

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cell="clr-namespace:BoilerPlate.Views.Cell;assembly=BoilerPlate"
+             x:Class="BoilerPlate.Views.FancyCellPage">
+  <StackLayout>
+    <ListView x:Name="listView" ItemSelected="ListView_OnItemSelected" RowHeight="120">
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <cell:FancyCell
+            Title="{Binding Title}"
+            SubTitle="{Binding Description}"
+            ImageFilename="{Binding FileName}"/>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+  </StackLayout>
+</ContentPage>

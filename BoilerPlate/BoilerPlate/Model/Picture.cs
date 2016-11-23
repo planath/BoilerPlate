@@ -7,7 +7,8 @@
             FileName = fileName;
         }
 
-        public string Description { get; set; }
         public string FileName { get; }
+        public string Title => FileName + " Title";
+        public string Description => "desctiption for " + FileName;
     }
 }
