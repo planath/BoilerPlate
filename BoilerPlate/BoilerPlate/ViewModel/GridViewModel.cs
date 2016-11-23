@@ -41,6 +41,5 @@ namespace BoilerPlate.ViewModel
             Picture9 = Pictures[9];
             Picture10 = Pictures[10];
         }
-
     }
 }
