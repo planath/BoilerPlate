@@ -4,10 +4,11 @@
              xmlns:views="clr-namespace:BoilerPlate.Views;assembly=BoilerPlate"
              x:Class="BoilerPlate.Views.BorderRadiusPage">
   <StackLayout
+    Padding="20,40,20,0"
     Orientation="Vertical"
     HorizontalOptions="FillAndExpand"
     VerticalOptions="FillAndExpand"
-    Spacing="10">
+    Spacing="20">
     <Label Text="BorderRadius through custom bound properties and custom Renderer for iOS" VerticalOptions="Center" HorizontalOptions="Center" />
     <views:RoundedBoxView 
       HorizontalOptions="Center"

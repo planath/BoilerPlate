@@ -66,10 +66,10 @@
     <Compile Include="Views\ClickPage.xaml.cs">
       <DependentUpon>ClickPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ImageResponsive.xaml.cs">
+    <Compile Include="Views\CustomView\ImageResponsive.xaml.cs">
       <DependentUpon>ImageResponsive.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\RoundedBoxView.cs" />
+    <Compile Include="Views\CustomView\RoundedBoxView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GettingStarted.Xamarin" />
@@ -114,7 +114,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\ImageResponsive.xaml">
+    <EmbeddedResource Include="Views\CustomView\ImageResponsive.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
