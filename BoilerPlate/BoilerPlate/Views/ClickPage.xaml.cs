@@ -10,6 +10,7 @@ namespace BoilerPlate.Views
 {
     public partial class ClickPage : ContentPage
     {
+        private ClickViewModel Vm => App.Locator.Click;
         public ClickPage()
         {
             InitializeComponent();
@@ -17,6 +18,5 @@ namespace BoilerPlate.Views
             BindingContext = Vm;
         }
 
-        private ClickViewModel Vm => App.Locator.Click;
     }
 }

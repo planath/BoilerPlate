@@ -23,12 +23,14 @@ namespace BoilerPlate.ViewModel
             SimpleIoc.Default.Register<GridViewModel>();
             SimpleIoc.Default.Register<HomeViewModel>();
             SimpleIoc.Default.Register<RadiusViewModel>();
+            SimpleIoc.Default.Register<EventsViewModel>();
         }
 
         public HomeViewModel Home => ServiceLocator.Current.GetInstance<HomeViewModel>();
         public ClickViewModel Click => ServiceLocator.Current.GetInstance<ClickViewModel>();
         public GridViewModel Grid => ServiceLocator.Current.GetInstance<GridViewModel>();
-        public RadiusViewModel Radius => ServiceLocator.Current.GetInstance<RadiusViewModel>(); 
+        public RadiusViewModel Radius => ServiceLocator.Current.GetInstance<RadiusViewModel>();
+        public EventsViewModel Events => ServiceLocator.Current.GetInstance<EventsViewModel>();
 
         public static void Cleanup()
         {

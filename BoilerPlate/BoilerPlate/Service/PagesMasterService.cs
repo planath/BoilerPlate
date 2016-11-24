@@ -14,7 +14,8 @@ namespace BoilerPlate.Service
                 new PageLink("Grid - Orientation aware", new GridCsPage()),
                 new PageLink("Grid from XAML", new GridXamlPage()),
                 new PageLink("Custom iOS Cell", new FancyCellPage()),
-                new PageLink("Custom rounded corners View", new BorderRadiusPage())
+                new PageLink("Custom rounded corners View", new BorderRadiusPage()),
+                new PageLink("TDD Event filtering", new EventsPage())
             };
         }
     }
