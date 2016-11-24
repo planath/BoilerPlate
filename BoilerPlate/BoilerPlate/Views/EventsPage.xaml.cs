@@ -1,4 +1,6 @@
-﻿using BoilerPlate.ViewModel;
+﻿using System;
+using BoilerPlate.ViewModel;
+using DLToolkit.Forms.Controls;
 using Xamarin.Forms;
 
 namespace BoilerPlate.Views
@@ -8,15 +10,10 @@ namespace BoilerPlate.Views
         private EventsViewModel Vm => App.Locator.Events;
         public EventsPage()
         {
+            FlowListView.Init();
             InitializeComponent();
             Vm.Init();
             BindingContext = Vm;
-        }
-
-        private void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            Vm.SetFilterCommand.Execute(e.SelectedItem);
-            FilterList.SelectedItem = null;
         }
     }
 }

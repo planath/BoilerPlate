@@ -103,7 +103,7 @@ namespace BoilerPlate.ViewModel
         {
             var categoryFood = new Category("Essen", Color.Green);
             var categorySport = new Category("Sport", Color.Red);
-            var categoryFun = new Category("Spass", Color.Blue);
+            var categoryFun = new Category("Spass", Color.Teal);
             return new ObservableCollection<Event>()
             {
                 new Event("Zmorge","In der Mensa", DateTime.UtcNow, categoryFood),

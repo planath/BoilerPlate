@@ -1,26 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
              x:Class="BoilerPlate.Views.EventsPage">
   <StackLayout
     Orientation="Vertical"
     HorizontalOptions="FillAndExpand"
     VerticalOptions="FillAndExpand">
     
-    <ListView
-      x:Name="FilterList"
-      HorizontalOptions="FillAndExpand"
-      VerticalOptions="Fill"
-      ItemsSource="{Binding Categories}"
-      ItemSelected="ListView_OnItemSelected">
-      <ListView.ItemTemplate>
+    <!--FlowItemTappedCommand="{Binding ItemTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}"-->
+    <controls:FlowListView FlowColumnCount="{Binding Categories.Count}"
+      SeparatorVisibility="None"
+      HasUnevenRows="false"
+      FlowItemsSource="{Binding Categories}" 
+      FlowItemTappedCommand="{Binding SetFilterCommand}"
+      HeightRequest="41">
+
+      <controls:FlowListView.FlowColumnTemplate>
         <DataTemplate>
-          <TextCell 
-            Text="{Binding Title}"
-            TextColor="{Binding Color}"/>
+          <Label HorizontalOptions="Fill" VerticalOptions="Fill"
+              XAlign="Center" YAlign="Center" Text="{Binding Title}"
+              BackgroundColor="{Binding Color}" TextColor="White"
+                 HeightRequest="40"/>
         </DataTemplate>
-      </ListView.ItemTemplate>
-    </ListView>
+      </controls:FlowListView.FlowColumnTemplate>
+
+    </controls:FlowListView>
     
     <ListView
       HorizontalOptions="FillAndExpand"
