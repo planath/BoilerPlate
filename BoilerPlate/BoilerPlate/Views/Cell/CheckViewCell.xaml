@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+          xmlns:converter="clr-namespace:BoilerPlate.Converter;assembly=BoilerPlate"
+          x:Class="BoilerPlate.Views.Cell.CheckViewCell">
+  <StackLayout
+    Orientation="Horizontal"
+    HorizontalOptions="FillAndExpand"
+    VerticalOptions="FillAndExpand">
+
+    <StackLayout.Resources>
+      <ResourceDictionary>
+        <converter:BoolToCheckImageConverter x:Key="checkImage" FalseImageFileName="" TrueImageFileName="check.png"/>
+      </ResourceDictionary>
+    </StackLayout.Resources>
+    
+    <BoxView
+      x:Name="ColorBox"
+      Color="{Binding Category.Color}" 
+      WidthRequest="5"
+      VerticalOptions="FillAndExpand"/>
+    
+    <StackLayout
+      Orientation="Vertical"
+      VerticalOptions="FillAndExpand"
+      HorizontalOptions="FillAndExpand"
+      Spacing="1"
+      Margin="2,4">
+        
+      <Label x:Name="TitleLabel" Text="{Binding Title}" TextColor="Black"
+              HorizontalOptions="FillAndExpand" VerticalTextAlignment="Center"
+              FontSize="18"/>
+      <Label x:Name="DescriptionLabel" Text="{Binding Description}" TextColor="Gray"
+              HorizontalOptions="FillAndExpand" VerticalTextAlignment="Center"
+              FontSize="12" />
+    </StackLayout>
+    
+    <Image x:Name="ImageView" Source="{Binding Participate, Converter={StaticResource checkImage}}"
+           WidthRequest="24" HorizontalOptions="End" Margin="0,0,6,0"/>
+  </StackLayout>
+</ViewCell>

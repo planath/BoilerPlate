@@ -19,12 +19,14 @@ namespace BoilerPlate.ViewModel
 
         public EventsViewModel()
         {
-            SetFilterCommand = new RelayCommand<Category>(SetFilter);
+            ParticipateEventCommand = new RelayCommand<Event>(ParticipateEvent);
             RefreshContentCommand = new RelayCommand(RefreshContent);
+            SetFilterCommand = new RelayCommand<Category>(SetFilter);
         }
 
         #region Properties
         public RelayCommand<Category> SetFilterCommand { get; set; }
+        public RelayCommand<Event> ParticipateEventCommand { get; set; }
         public RelayCommand RefreshContentCommand { get; set; }
         public List<Category> Categories { get; set; }
         public Category CategoryFilter
@@ -72,6 +74,11 @@ namespace BoilerPlate.ViewModel
         }
 
         #region Private functions
+
+        private void ParticipateEvent(Event evnt)
+        {
+            evnt.Participate = !evnt.Participate;
+        }
 
         // reloads all data
         private async void RefreshContent()
@@ -145,7 +152,7 @@ namespace BoilerPlate.ViewModel
                 new Event("Zmorge","In der Mensa", DateTime.UtcNow, categoryFood),
                 new Event("Zmittag","In der Mensa", DateTime.UtcNow, categoryFood),
                 new Event("Znacht","Im Wald", DateTime.UtcNow, categoryFood),
-                new Event("Snowboarden","Beim Berg", DateTime.UtcNow, categorySport),
+                new Event("Snowboarden","Beim Berg", DateTime.UtcNow, categorySport) {Participate = true},
                 new Event("Minigolf","Wir treffen uns beim Parkplatz", DateTime.UtcNow, categorySport),
                 new Event("Paintball","Wir treffen uns bei der Lounge", DateTime.UtcNow, categoryFun),
                 new Event("Puzzeln","In der Lounge", DateTime.UtcNow, categoryFun),

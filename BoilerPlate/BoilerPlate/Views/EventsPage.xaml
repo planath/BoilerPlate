@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+             xmlns:cell="clr-namespace:BoilerPlate.Views.Cell;assembly=BoilerPlate"
              x:Class="BoilerPlate.Views.EventsPage">
   
   <StackLayout
@@ -36,14 +37,12 @@
       Refreshing="Events_OnRefreshing"
       HorizontalOptions="FillAndExpand"
       VerticalOptions="FillAndExpand"
-      ItemsSource="{Binding Events}">
+      ItemsSource="{Binding Events}"
+      ItemSelected="Events_OnItemSelected"
+      HasUnevenRows="True">
       <ListView.ItemTemplate>
         <DataTemplate>
-          <TextCell
-            Text="{Binding Title}"
-            TextColor="Black"
-            Detail="{Binding Description}"
-            DetailColor="{Binding Category.Color}"/>
+          <cell:CheckViewCell />
         </DataTemplate>
       </ListView.ItemTemplate>
     </ListView>

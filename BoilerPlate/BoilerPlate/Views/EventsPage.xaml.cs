@@ -1,4 +1,5 @@
 ﻿using System;
+using BoilerPlate.Model;
 using BoilerPlate.ViewModel;
 using DLToolkit.Forms.Controls;
 using Xamarin.Forms;
@@ -19,6 +20,15 @@ namespace BoilerPlate.Views
         private void Events_OnRefreshing(object sender, EventArgs e)
         {
             Vm.RefreshContentCommand.Execute(null);
+        }
+
+        private void Events_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            var item = e.SelectedItem;
+            if (item is Event)
+            {
+                Vm.ParticipateEventCommand.Execute(item);
+            }
         }
     }
 }

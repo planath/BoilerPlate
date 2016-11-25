@@ -142,5 +142,20 @@ namespace BoilerPlate.Unit.Tests.ViewModel
                 Assert.True(reloadedEvents.Contains(oldEvent));
             }
         }
+
+        [Fact]
+        public void ParticipateEvent_PropertyOfEventIsToggeled()
+        {
+            _vm.Init();
+            var initialEvents = _vm.Events;
+
+            var evnt = _vm.Events.Last();
+            var evntParticipationBefore = evnt.Participate;
+            _vm.ParticipateEventCommand.Execute(evnt);
+            var evntParticipationAfter = evnt.Participate;
+            
+            Assert.False(evntParticipationBefore);
+            Assert.True(evntParticipationAfter);
+        }
     }
 }
