@@ -3,31 +3,37 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
              x:Class="BoilerPlate.Views.EventsPage">
+  
   <StackLayout
     Orientation="Vertical"
     HorizontalOptions="FillAndExpand"
     VerticalOptions="FillAndExpand">
     
-    <!--FlowItemTappedCommand="{Binding ItemTappedCommand}" FlowLastTappedItem="{Binding LastTappedItem}"-->
     <controls:FlowListView FlowColumnCount="{Binding Categories.Count}"
+      FlowColumnMinWidth="45"
+      FlowTappedBackgroundColor="Aqua"
+      RowHeight="40"
+      HeightRequest="41"
       SeparatorVisibility="None"
-      HasUnevenRows="false"
       FlowItemsSource="{Binding Categories}" 
       FlowItemTappedCommand="{Binding SetFilterCommand}"
-      HeightRequest="41">
-
+      FlowColumnExpand="ProportionalLast"
+      HorizontalOptions="FillAndExpand"
+      VerticalOptions="Start">
       <controls:FlowListView.FlowColumnTemplate>
         <DataTemplate>
-          <Label HorizontalOptions="Fill" VerticalOptions="Fill"
+          <Label HorizontalOptions="Fill"
               XAlign="Center" YAlign="Center" Text="{Binding Title}"
               BackgroundColor="{Binding Color}" TextColor="White"
-                 HeightRequest="40"/>
+              Margin="2" HeightRequest="40" FontSize="12"/>
         </DataTemplate>
       </controls:FlowListView.FlowColumnTemplate>
-
     </controls:FlowListView>
     
     <ListView
+      IsPullToRefreshEnabled="True"
+      IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
+      Refreshing="Events_OnRefreshing"
       HorizontalOptions="FillAndExpand"
       VerticalOptions="FillAndExpand"
       ItemsSource="{Binding Events}">
@@ -35,10 +41,12 @@
         <DataTemplate>
           <TextCell
             Text="{Binding Title}"
+            TextColor="Black"
             Detail="{Binding Description}"
             DetailColor="{Binding Category.Color}"/>
         </DataTemplate>
       </ListView.ItemTemplate>
     </ListView>
+  
   </StackLayout>
 </ContentPage>

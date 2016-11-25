@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using BoilerPlate.Helper;
 using BoilerPlate.Model;
 using GalaSoft.MvvmLight;
@@ -14,14 +15,17 @@ namespace BoilerPlate.ViewModel
     {
         private ObservableCollection<Event> _filteredEvents;
         private Category _categoryFilter;
+        private bool _isRefreshing;
 
         public EventsViewModel()
         {
             SetFilterCommand = new RelayCommand<Category>(SetFilter);
+            RefreshContentCommand = new RelayCommand(RefreshContent);
         }
 
         #region Properties
         public RelayCommand<Category> SetFilterCommand { get; set; }
+        public RelayCommand RefreshContentCommand { get; set; }
         public List<Category> Categories { get; set; }
         public Category CategoryFilter
         {
@@ -41,10 +45,20 @@ namespace BoilerPlate.ViewModel
                 RaisePropertyChanged(nameof(Events));
             }
         }
+
+        public bool IsRefreshing {
+            get { return _isRefreshing; }
+            set
+            {
+                _isRefreshing = value;
+                RaisePropertyChanged(nameof(IsRefreshing));
+            }
+        }
         #endregion
 
         public void Init()
         {
+            IsRefreshing = false;
             Events = GetMockEvents();
             CategoryFilter = null;
             Categories = new List<Category>();
@@ -58,6 +72,28 @@ namespace BoilerPlate.ViewModel
         }
 
         #region Private functions
+
+        // reloads all data
+        private async void RefreshContent()
+        {
+            await WaitForSeconds(2);
+
+            Events.Remove(e => true);
+            foreach (var evnt in GetMockEvents())
+            {
+                Events.Add(evnt);
+            }
+            
+            CategoryFilter = null;
+            IsRefreshing = false;
+        }
+
+        private static async Task WaitForSeconds(double seconds)
+        {
+            await Task.Factory.StartNew(() => { });
+            await Task.Delay((int)(seconds * 1000));
+        }
+
         private void SetFilter(Category newCategoryFilter)
         {
             if (newCategoryFilter == null) return;

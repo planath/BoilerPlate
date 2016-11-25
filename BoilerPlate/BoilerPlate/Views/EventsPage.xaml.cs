@@ -11,9 +11,14 @@ namespace BoilerPlate.Views
         public EventsPage()
         {
             FlowListView.Init();
-            InitializeComponent();
             Vm.Init();
             BindingContext = Vm;
+            InitializeComponent();
+        }
+
+        private void Events_OnRefreshing(object sender, EventArgs e)
+        {
+            Vm.RefreshContentCommand.Execute(null);
         }
     }
 }

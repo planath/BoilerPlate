@@ -20,6 +20,7 @@ namespace BoilerPlate.Unit.Tests.Model
             Assert.Equal(evnt.Description, eventDescription);
             Assert.Equal(evnt.DateTime, eventTime);
             Assert.Equal(evnt.Category, eventCategory);
+            Assert.False(evnt.Partipicate);
         }
     }
 }

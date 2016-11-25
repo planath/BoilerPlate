@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using BoilerPlate.Model;
 using BoilerPlate.ViewModel;
 using Xunit;
@@ -59,6 +61,26 @@ namespace BoilerPlate.Unit.Tests.ViewModel
         }
 
         [Fact]
+        public void SetCategoryFilter_SelectedCategorysPropertyUpdated()
+        {
+            _vm.Init();
+
+            var category = _vm.Categories.First();
+            _vm.SetFilterCommand.Execute(category);
+
+            Assert.Equal(_vm.CategoryFilter, category);
+            Assert.True(_vm.CategoryFilter.Selected);
+
+            foreach (var vmCategory in _vm.Categories)
+            {
+                if (vmCategory != category)
+                {
+                    Assert.False(vmCategory.Selected);
+                }
+            }
+        }
+
+        [Fact]
         public void SetCategoryFilter_FilteredEventsUpdated()
         {
             _vm.Init();
@@ -99,6 +121,26 @@ namespace BoilerPlate.Unit.Tests.ViewModel
 
             Assert.Null(_vm.CategoryFilter);
             Assert.Equal(_vm.Events.Count, initialEventsCount);
+        }
+
+        [Fact]
+        public async void RefreshContent_AllEventsDeletedAndLoadedAgainFromSource()
+        {
+            _vm.Init();
+            var initialEvents = _vm.Events;
+
+            var category = _vm.Categories.Last();
+            _vm.SetFilterCommand.Execute(category);
+            _vm.RefreshContentCommand.Execute(null);
+
+            // waiting for 2.1 seconds for data to be reloaded
+            await Task.Delay(2100);
+            var reloadedEvents = _vm.Events;
+
+            foreach (var oldEvent in initialEvents)
+            {
+                Assert.True(reloadedEvents.Contains(oldEvent));
+            }
         }
     }
 }

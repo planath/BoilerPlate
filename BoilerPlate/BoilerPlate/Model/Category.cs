@@ -13,5 +13,6 @@ namespace BoilerPlate.Model
 
         public string Title { get; internal set; }
         public Color Color { get; internal set; }
+        public bool Selected { get; set; }
     }
 }
