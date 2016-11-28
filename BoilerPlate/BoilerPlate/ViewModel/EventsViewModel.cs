@@ -1,24 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using BoilerPlate.Helper;
 using BoilerPlate.Model;
+using BoilerPlate.Service;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using Xamarin.Forms;
 
 namespace BoilerPlate.ViewModel
 {
     public class EventsViewModel : ViewModelBase
     {
+        private readonly IEventsService _eventsService;
         private ObservableCollection<Event> _filteredEvents;
         private Category _categoryFilter;
         private bool _isRefreshing;
 
-        public EventsViewModel()
+        public EventsViewModel(IEventsService eventsService)
         {
+            _eventsService = eventsService;
             ParticipateEventCommand = new RelayCommand<Event>(ParticipateEvent);
             RefreshContentCommand = new RelayCommand(RefreshContent);
             SetFilterCommand = new RelayCommand<Category>(SetFilter);
@@ -61,7 +62,7 @@ namespace BoilerPlate.ViewModel
         public void Init()
         {
             IsRefreshing = false;
-            Events = GetMockEvents();
+            Events = _eventsService.GetMockEventsWithParticipatingEventsChecked();
             CategoryFilter = null;
             Categories = new List<Category>();
             foreach (var evnt in Events)
@@ -78,6 +79,14 @@ namespace BoilerPlate.ViewModel
         private void ParticipateEvent(Event evnt)
         {
             evnt.Participate = !evnt.Participate;
+            if (evnt.Participate)
+            {
+                _eventsService.addParticipatingEvent(evnt.Id);
+            }
+            else
+            {
+                _eventsService.removeParticipatingEvent(evnt.Id);
+            }
         }
 
         // reloads all data
@@ -86,7 +95,7 @@ namespace BoilerPlate.ViewModel
             await WaitForSeconds(2);
 
             Events.Remove(e => true);
-            foreach (var evnt in GetMockEvents())
+            foreach (var evnt in _eventsService.GetMockEventsAndReset())
             {
                 Events.Add(evnt);
             }
@@ -110,7 +119,7 @@ namespace BoilerPlate.ViewModel
             // reset the filter
             if (oldFilter == newCategoryFilter)
             {
-                foreach (var evnt in GetMockEvents())
+                foreach (var evnt in _eventsService.GetMockEventsWithParticipatingEventsChecked())
                 {
                     var alreadyExists = Events.FirstOrDefault(e => e.Title == evnt.Title);
                     if (alreadyExists == null)
@@ -127,7 +136,7 @@ namespace BoilerPlate.ViewModel
                 Events.Remove(e => !e.Category.Title.Equals(newCategoryFilter.Title));
 
                 // add from repo if not already present
-                foreach (var evnt in GetMockEvents())
+                foreach (var evnt in _eventsService.GetMockEventsWithParticipatingEventsChecked())
                 {
                     if (evnt.Category.Title.Equals(newCategoryFilter.Title))
                     {
@@ -139,24 +148,6 @@ namespace BoilerPlate.ViewModel
                     }
                 }
             }
-        }
-
-        //Todo: replace with a service class
-        private ObservableCollection<Event> GetMockEvents()
-        {
-            var categoryFood = new Category("Essen", Color.Green);
-            var categorySport = new Category("Sport", Color.Red);
-            var categoryFun = new Category("Spass", Color.Teal);
-            return new ObservableCollection<Event>()
-            {
-                new Event("Zmorge","In der Mensa", DateTime.UtcNow, categoryFood),
-                new Event("Zmittag","In der Mensa", DateTime.UtcNow, categoryFood),
-                new Event("Znacht","Im Wald", DateTime.UtcNow, categoryFood),
-                new Event("Snowboarden","Beim Berg", DateTime.UtcNow, categorySport) {Participate = true},
-                new Event("Minigolf","Wir treffen uns beim Parkplatz", DateTime.UtcNow, categorySport),
-                new Event("Paintball","Wir treffen uns bei der Lounge", DateTime.UtcNow, categoryFun),
-                new Event("Puzzeln","In der Lounge", DateTime.UtcNow, categoryFun),
-            };
         }
         #endregion
     }

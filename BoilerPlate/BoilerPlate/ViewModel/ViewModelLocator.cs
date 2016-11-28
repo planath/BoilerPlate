@@ -1,3 +1,6 @@
+using BoilerPlate.Helper;
+using BoilerPlate.Helpers;
+using BoilerPlate.Repository;
 using BoilerPlate.Service;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
@@ -18,6 +21,9 @@ namespace BoilerPlate.ViewModel
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
             SimpleIoc.Default.Register<IPagesMasterService, PagesMasterService>();
             SimpleIoc.Default.Register<IImagesService, ImagesService>();
+            SimpleIoc.Default.Register<ILocalPersistanceHelper, Settings>();
+            SimpleIoc.Default.Register<IEventsService, EventsService>();
+            SimpleIoc.Default.Register<IEventsRepository, EventsRepository>();
 
             SimpleIoc.Default.Register<ClickViewModel>();
             SimpleIoc.Default.Register<GridViewModel>();
