@@ -38,6 +38,7 @@
     <Compile Include="App.cs" />
     <Compile Include="Converter\BoolToCheckImageConverter.cs" />
     <Compile Include="Helper\ILocalPersistanceHelper.cs" />
+    <Compile Include="Helper\IPictureSaver.cs" />
     <Compile Include="Helper\IPictureTaker.cs" />
     <Compile Include="Helper\ObservableCollectionExtension.cs" />
     <Compile Include="Helper\Settings.cs" />

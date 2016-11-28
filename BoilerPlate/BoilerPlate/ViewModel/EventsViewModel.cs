@@ -16,18 +16,19 @@ namespace BoilerPlate.ViewModel
         private ObservableCollection<Event> _filteredEvents;
         private Category _categoryFilter;
         private bool _isRefreshing;
+        private Event _selectedEvent;
 
         public EventsViewModel(IEventsService eventsService)
         {
             _eventsService = eventsService;
-            ParticipateEventCommand = new RelayCommand<Event>(ParticipateEvent);
+            SelectEventCommand = new RelayCommand<Event>(SelectEvent);
             RefreshContentCommand = new RelayCommand(RefreshContent);
             SetFilterCommand = new RelayCommand<Category>(SetFilter);
         }
 
         #region Properties
         public RelayCommand<Category> SetFilterCommand { get; set; }
-        public RelayCommand<Event> ParticipateEventCommand { get; set; }
+        public RelayCommand<Event> SelectEventCommand { get; set; }
         public RelayCommand RefreshContentCommand { get; set; }
         public List<Category> Categories { get; set; }
         public Category CategoryFilter
@@ -46,6 +47,15 @@ namespace BoilerPlate.ViewModel
             {
                 _filteredEvents = value;
                 RaisePropertyChanged(nameof(Events));
+            }
+        }
+        public Event SelectedEvent
+        {
+            get { return _selectedEvent; }
+            set
+            {
+                _selectedEvent = value;
+                RaisePropertyChanged(nameof(SelectedEvent));
             }
         }
 
@@ -76,17 +86,9 @@ namespace BoilerPlate.ViewModel
 
         #region Private functions
 
-        private void ParticipateEvent(Event evnt)
+        private void SelectEvent(Event evnt)
         {
-            evnt.Participate = !evnt.Participate;
-            if (evnt.Participate)
-            {
-                _eventsService.addParticipatingEvent(evnt.Id);
-            }
-            else
-            {
-                _eventsService.removeParticipatingEvent(evnt.Id);
-            }
+            SelectedEvent = evnt;
         }
 
         // reloads all data

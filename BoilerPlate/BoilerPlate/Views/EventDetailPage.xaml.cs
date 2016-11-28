@@ -1,5 +1,7 @@
 ﻿using System;
 using BoilerPlate.Helper;
+using BoilerPlate.Model;
+using BoilerPlate.ViewModel;
 using GalaSoft.MvvmLight.Ioc;
 using Xamarin.Forms;
 
@@ -9,13 +11,21 @@ namespace BoilerPlate.Views
     {
         private IPictureTaker _pictureTaker;
 
-        public EventDetailPage()
+        private EventDetailViewModel Vm => App.Locator.EventDetail;
+        public EventDetailPage(Event evnt)
         {
             InitializeComponent();
             _pictureTaker = SimpleIoc.Default.GetInstance<IPictureTaker>();
+
+            Vm.Init(evnt);
+            BindingContext = Vm;
+            SetBinding(ContentPage.TitleProperty, new Binding("SelectedEvent.Category.Title"));
+            this.SetBinding(NavigationPage.BarBackgroundColorProperty, new Binding("SelectedEvent.Category.Color"));
+
+            //TODO: put this code behind for retrieving message into VM
             MessagingCenter.Subscribe<IPictureTaker, string>(this, "pictureTaken", (sender, arg) =>
             {
-                takenPicture.Source = ImageSource.FromFile(arg);
+                Vm.AddPictureCommand.Execute(new Picture(arg));
             });
         }
 

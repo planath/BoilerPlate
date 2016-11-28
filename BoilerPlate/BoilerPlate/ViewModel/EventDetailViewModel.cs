@@ -1,18 +1,24 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using BoilerPlate.Helper;
 using BoilerPlate.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using Xamarin.Forms;
 
 namespace BoilerPlate.ViewModel
 {
     public class EventDetailViewModel : ViewModelBase
     {
+        private readonly IPictureSaver _pictureSaver;
         private Event _selectedEvent;
-        private IList<Picture> _pictures = new List<Picture>();
+        private ObservableCollection<Picture> _pictures = new ObservableCollection<Picture>();
 
-        public EventDetailViewModel()
+        public EventDetailViewModel(IPictureSaver pictureSaver)
         {
-            TakePictureCommand = new RelayCommand(TakePicture);
+            _pictureSaver = pictureSaver;
+            AddPictureCommand = new RelayCommand<Picture>(AddPicture);
         }
 
         #region Properties and Commands
@@ -25,7 +31,7 @@ namespace BoilerPlate.ViewModel
                 RaisePropertyChanged(nameof(SelectedEvent));
             }
         }
-        public IList<Picture> Pictures
+        public ObservableCollection<Picture> Pictures
         {
             get { return _pictures; }
             set
@@ -35,20 +41,41 @@ namespace BoilerPlate.ViewModel
             }
         }
 
-        public RelayCommand TakePictureCommand { get; set; }
+        public RelayCommand<Picture> AddPictureCommand { get; set; }
         #endregion
-        public void Init()
+        public void Init(Event evnt)
         {
+            SelectedEvent = evnt;
             if (Pictures.Count <= 0)
             {
-                   Pictures.Add(new Picture("pictureDefault"));
+                Pictures.Add(new Picture("pictureDefault"));
+
+                var imageSourceLocation = _pictureSaver.GetPictureFromDisk("2");
+                Pictures.Add(new Picture(imageSourceLocation));
             }
         }
 
         #region private methods
-        private void TakePicture()
+        private void AddPicture(Picture picture)
         {
-            throw new System.NotImplementedException();
+            // Remove placeholder
+            if (Pictures.Count == 1)
+            {
+                if (Pictures.First().FileName.Equals("pictureDefault"))
+                {
+                    Pictures.RemoveAt(0);
+                }
+            }
+
+            // persist
+            if (picture.ImageSource != null)
+            {
+                var fileId = SelectedEvent.Id.ToString(); //picture.FileName + 
+                _pictureSaver.SavePictureToDisk(picture.ImageSource, fileId);
+            }
+
+            // add to view
+            Pictures.Add(picture);
         }
         #endregion
     }

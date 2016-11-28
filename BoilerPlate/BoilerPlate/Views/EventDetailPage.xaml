@@ -1,18 +1,122 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+             xmlns:views="clr-namespace:BoilerPlate.Views;assembly=BoilerPlate"
              x:Class="BoilerPlate.Views.EventDetailPage">
-  <StackLayout>
-    <Button
-      Text="Choos Picture"
-      Clicked="PictureFromFile_OnClicked"/>
-    <Button
-      Text="Take Picture"
-      Clicked="PictureFromCamera_OnClicked"/>
-    <Image 
-      x:Name="takenPicture"
-      HorizontalOptions="FillAndExpand"
-      VerticalOptions="FillAndExpand"/>  
-  </StackLayout>
-  
+  <ScrollView>
+    <StackLayout
+      Padding="20,10,20,0"
+      Spacing="1">
+
+      <!--Event information-->
+      <StackLayout
+        Orientation="Horizontal"
+        HorizontalOptions="FillAndExpand"
+        VerticalOptions="Fill">
+        <Label
+          HorizontalOptions="Fill"
+          FontSize="16"
+          FontAttributes="Bold"
+          TextColor="{Binding SelectedEvent.Category.Color}"
+          Text="{Binding SelectedEvent.Title}"/>
+        <Label
+          HorizontalOptions="Fill"
+          FontSize="16"
+          Text="-"/>
+        <Label
+          HorizontalOptions="FillAndExpand"
+          FontSize="16"
+          Text="{Binding SelectedEvent.Description}"/>
+      </StackLayout>
+
+      <StackLayout
+        Orientation="Horizontal"
+        HorizontalOptions="FillAndExpand"
+        VerticalOptions="Fill">
+        <Label
+          HorizontalOptions="Fill"
+          FontSize="16"
+          Text="Am"/>
+        <Label
+          HorizontalOptions="Fill"
+          FontSize="16"
+          Text="{Binding SelectedEvent.DateTime, StringFormat='{0:dd. MMMM}'}"/>
+        <Label
+          HorizontalOptions="Fill"
+          FontSize="16"
+          Text="um"/>
+        <Label
+          HorizontalOptions="FillAndExpand"
+          FontSize="16"
+          HorizontalTextAlignment="Start"
+          Text="{Binding SelectedEvent.DateTime, StringFormat='{0:hh\\:mm}'}"/>
+      </StackLayout>
+
+      <BoxView
+        Color="Silver"
+        HorizontalOptions="FillAndExpand"
+        HeightRequest="1"/>
+      
+      <!--Participate-->
+      <StackLayout
+        Orientation="Horizontal"
+        HorizontalOptions="FillAndExpand"
+        VerticalOptions="Fill"
+        Margin="0,20,0,20">
+        <Label
+          Text="Teilnahme"
+          HorizontalOptions="StartAndExpand"
+          FontSize="16"
+          VerticalTextAlignment="Center"/>
+        <Switch
+          HorizontalOptions="End"
+          IsToggled="{Binding SelectedEvent.Participate, Mode=TwoWay}"/>
+      </StackLayout>
+      
+      <BoxView 
+        Color="Silver"
+        HorizontalOptions="FillAndExpand"
+        HeightRequest="1"/>
+
+        <!--Images-->
+      <controls:FlowListView
+        FlowItemsSource="{Binding Pictures}"
+        FlowColumnMinWidth="90"
+        RowHeight="80"
+        HeightRequest="240"
+        SeparatorVisibility="None"
+        HorizontalOptions="FillAndExpand"
+        VerticalOptions="Fill">
+        <controls:FlowListView.FlowColumnTemplate>
+          <DataTemplate>
+            <views:ImageResponsive
+              ImageSource="{Binding FileName}"/>
+          </DataTemplate>
+        </controls:FlowListView.FlowColumnTemplate>
+      </controls:FlowListView>
+
+      <BoxView
+        Color="Silver"
+        HorizontalOptions="FillAndExpand"
+        HeightRequest="1"/>
+      
+      <!--Get image-->
+      <StackLayout
+        Orientation="Horizontal"
+        HorizontalOptions="FillAndExpand"
+        VerticalOptions="Fill">
+        <Button
+          Text="Choos Picture"
+          Clicked="PictureFromFile_OnClicked"
+          HorizontalOptions="FillAndExpand"
+          VerticalOptions="FillAndExpand"/>
+        <Button
+          Text="Take Picture"
+          Clicked="PictureFromCamera_OnClicked"
+          HorizontalOptions="FillAndExpand"
+          VerticalOptions="FillAndExpand"/>
+      </StackLayout>
+    </StackLayout>  
+  </ScrollView>
 </ContentPage>

@@ -30,6 +30,7 @@ namespace BoilerPlate.ViewModel
             SimpleIoc.Default.Register<HomeViewModel>();
             SimpleIoc.Default.Register<RadiusViewModel>();
             SimpleIoc.Default.Register<EventsViewModel>();
+            SimpleIoc.Default.Register<EventDetailViewModel>();
         }
 
         public HomeViewModel Home => ServiceLocator.Current.GetInstance<HomeViewModel>();
@@ -37,6 +38,7 @@ namespace BoilerPlate.ViewModel
         public GridViewModel Grid => ServiceLocator.Current.GetInstance<GridViewModel>();
         public RadiusViewModel Radius => ServiceLocator.Current.GetInstance<RadiusViewModel>();
         public EventsViewModel Events => ServiceLocator.Current.GetInstance<EventsViewModel>();
+        public EventDetailViewModel EventDetail => ServiceLocator.Current.GetInstance<EventDetailViewModel>();
 
         public static void Cleanup()
         {

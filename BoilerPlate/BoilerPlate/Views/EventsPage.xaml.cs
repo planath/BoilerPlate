@@ -27,7 +27,8 @@ namespace BoilerPlate.Views
             var item = e.SelectedItem;
             if (item is Event)
             {
-                Vm.ParticipateEventCommand.Execute(item);
+                Vm.SelectEventCommand.Execute(item);
+                Navigation.PushAsync(new EventDetailPage((Event)item));
             }
             if (sender is ListView)
             {

@@ -1,4 +1,6 @@
-﻿namespace BoilerPlate.Model
+﻿using Xamarin.Forms;
+
+namespace BoilerPlate.Model
 {
     public class Picture
     {
@@ -10,5 +12,6 @@
         public string FileName { get; }
         public string Title => FileName + " Title";
         public string Description => "desctiption for " + FileName;
+        public ImageSource ImageSource => ImageSource.FromFile(FileName);
     }
 }

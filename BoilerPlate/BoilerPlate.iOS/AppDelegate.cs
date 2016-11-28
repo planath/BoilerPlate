@@ -24,6 +24,7 @@ namespace BoilerPlate.iOS
             global::Xamarin.Forms.Forms.Init();
 
             SimpleIoc.Default.Register<IPictureTaker, PictureTaker>();
+            SimpleIoc.Default.Register<IPictureSaver, PictureSaver>();
 
             LoadApplication(new App());
 
