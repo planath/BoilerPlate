@@ -29,6 +29,10 @@ namespace BoilerPlate.Views
             {
                 Vm.ParticipateEventCommand.Execute(item);
             }
+            if (sender is ListView)
+            {
+                ((ListView)sender).SelectedItem = null;
+            }
         }
     }
 }

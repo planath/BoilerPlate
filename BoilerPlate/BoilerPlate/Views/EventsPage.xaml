@@ -9,24 +9,24 @@
     Orientation="Vertical"
     HorizontalOptions="FillAndExpand"
     VerticalOptions="FillAndExpand">
-    
-    <controls:FlowListView FlowColumnCount="{Binding Categories.Count}"
-      FlowColumnMinWidth="45"
-      FlowTappedBackgroundColor="Aqua"
-      RowHeight="40"
-      HeightRequest="41"
-      SeparatorVisibility="None"
+
+    <!--Better: FlowColumnCount="{Binding Categories.Count}" instead of FlowColumnMinWidth
+        but Converter needed as iOS Layout looks bad with FlowColumnCount -->
+    <controls:FlowListView
+      FlowColumnMinWidth="120"
+      FlowColumnExpand="ProportionalLast"
       FlowItemsSource="{Binding Categories}" 
       FlowItemTappedCommand="{Binding SetFilterCommand}"
-      FlowColumnExpand="ProportionalLast"
+      RowHeight="38"
+      SeparatorVisibility="None"
       HorizontalOptions="FillAndExpand"
-      VerticalOptions="Start">
+      VerticalOptions="Fill">
       <controls:FlowListView.FlowColumnTemplate>
         <DataTemplate>
-          <Label HorizontalOptions="Fill"
+          <Label HorizontalOptions="Fill" VerticalOptions="Fill"
               XAlign="Center" YAlign="Center" Text="{Binding Title}"
               BackgroundColor="{Binding Color}" TextColor="White"
-              Margin="2" HeightRequest="40" FontSize="12"/>
+              Margin="2" FontSize="10"/>
         </DataTemplate>
       </controls:FlowListView.FlowColumnTemplate>
     </controls:FlowListView>
