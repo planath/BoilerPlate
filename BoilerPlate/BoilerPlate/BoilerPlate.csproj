@@ -38,6 +38,7 @@
     <Compile Include="App.cs" />
     <Compile Include="Converter\BoolToCheckImageConverter.cs" />
     <Compile Include="Helper\ILocalPersistanceHelper.cs" />
+    <Compile Include="Helper\IPictureTaker.cs" />
     <Compile Include="Helper\ObservableCollectionExtension.cs" />
     <Compile Include="Helper\Settings.cs" />
     <Compile Include="Model\BindableObjectBase.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="Service\IPagesMasterService.cs" />
     <Compile Include="Service\NavigationService.cs" />
     <Compile Include="Service\PagesMasterService.cs" />
+    <Compile Include="ViewModel\EventDetailViewModel.cs" />
     <Compile Include="ViewModel\EventsViewModel.cs" />
     <Compile Include="ViewModel\RadiusViewModel.cs" />
     <Compile Include="ViewModel\GridViewModel.cs" />
@@ -68,6 +70,9 @@
       <DependentUpon>CheckViewCell.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Cell\FancyCell.cs" />
+    <Compile Include="Views\EventDetailPage.xaml.cs">
+      <DependentUpon>EventDetailPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EventsPage.xaml.cs">
       <DependentUpon>EventsPage.xaml</DependentUpon>
     </Compile>
@@ -183,7 +188,12 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Views\EventDetailPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.3.2.127\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.3.2.127\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BoilerPlate.Model;
 using BoilerPlate.Repository;
 using Newtonsoft.Json;
-using Xamarin.Forms;
 
 namespace BoilerPlate.Service
 {
@@ -19,7 +15,7 @@ namespace BoilerPlate.Service
         {
             _eventsRepository = eventsRepository;
         }
-
+        
         public void addParticipatingEvent(int id)
         {
             var newId = new int[]{id};

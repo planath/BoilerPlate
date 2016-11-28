@@ -1,11 +1,11 @@
-﻿using System;
-
-using Android.App;
+﻿using Android.App;
+using Android.Content;
 using Android.Content.PM;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
+using BoilerPlate.Helper;
+using GalaSoft.MvvmLight.Ioc;
+using Xamarin.Forms;
+using Xamarin.Media;
 
 namespace BoilerPlate.Droid
 {
@@ -20,7 +20,19 @@ namespace BoilerPlate.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+
+            SimpleIoc.Default.Register<IPictureTaker, PictureTaker>();
+
             LoadApplication(new App());
+        }
+        protected override async void OnActivityResult(int requestCode, Result resultCode, Intent data)
+        {
+            if (resultCode == Result.Canceled) return;
+
+            var mediaFile = await data.GetMediaFileExtraAsync(Forms.Context);
+            System.Diagnostics.Debug.WriteLine(mediaFile.Path);
+
+            MessagingCenter.Send<IPictureTaker, string>(new PictureTaker(), "pictureTaken", mediaFile.Path);
         }
     }
 }

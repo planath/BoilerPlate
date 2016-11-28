@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
+﻿using BoilerPlate.Helper;
+using BoilerPlate.iOS.Helpers;
 using Foundation;
+using GalaSoft.MvvmLight.Ioc;
 using UIKit;
 
 namespace BoilerPlate.iOS
@@ -23,6 +22,9 @@ namespace BoilerPlate.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+
+            SimpleIoc.Default.Register<IPictureTaker, PictureTaker>();
+
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

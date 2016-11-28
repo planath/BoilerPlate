@@ -89,6 +89,7 @@
     <Compile Include="PagesMasterServiceTest.cs" />
     <Compile Include="ImagesServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\EventDetailViewModelTests.cs" />
     <Compile Include="ViewModel\EventsViewModelTests.cs" />
   </ItemGroup>
   <ItemGroup>
