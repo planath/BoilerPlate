@@ -12,7 +12,8 @@
     </ContentPage>
   </MasterDetailPage.Master>
   <MasterDetailPage.Detail>
-    <NavigationPage>
+    <NavigationPage
+      BarBackgroundColor="Black">
       <x:Arguments>
         <Page>
           <ContentPage Title="Detail">

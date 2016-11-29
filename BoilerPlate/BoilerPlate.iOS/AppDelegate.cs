@@ -23,12 +23,40 @@ namespace BoilerPlate.iOS
         {
             global::Xamarin.Forms.Forms.Init();
 
+            // Ask for Notifications
+            UIUserNotificationSettings.GetSettingsForTypes(UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound, null);
+            UIApplication.SharedApplication.RegisterForRemoteNotifications();
+            UIApplication.SharedApplication.RegisterForRemoteNotificationTypes(UIRemoteNotificationType.Alert | UIRemoteNotificationType.Badge);
+
+            //if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0))
+            //{
+            //    UIUserNotificationSettings.GetSettingsForTypes(UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound, null);
+            //    UIApplication.SharedApplication.RegisterForRemoteNotifications();
+            //}
+            //else
+            //{
+            //    UIApplication.SharedApplication.RegisterForRemoteNotificationTypes(UIRemoteNotificationType.Alert | UIRemoteNotificationType.Badge);
+            //}
+
+            // DI
             SimpleIoc.Default.Register<IPictureTaker, PictureTaker>();
             SimpleIoc.Default.Register<IPictureSaver, PictureSaver>();
+            SimpleIoc.Default.Register<INotifyService, NotifyService>();
 
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
+        }
+        public override void ReceivedLocalNotification(UIApplication application, UILocalNotification notification)
+        {
+            // show an alert
+            UIAlertController okayAlertController = UIAlertController.Create(notification.AlertAction, notification.AlertBody, UIAlertControllerStyle.Alert);
+            okayAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
+
+            Window.RootViewController.PresentViewController(okayAlertController, true, null);
+
+            // reset our badge
+            UIApplication.SharedApplication.ApplicationIconBadgeNumber = 0;
         }
     }
 }

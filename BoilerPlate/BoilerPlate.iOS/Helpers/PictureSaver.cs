@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using BoilerPlate.Helper;
 using Foundation;
 using Xamarin.Forms;
-using Xamarin.Forms.Platform.iOS;
 
 namespace BoilerPlate.iOS.Helpers
 {
@@ -13,7 +15,7 @@ namespace BoilerPlate.iOS.Helpers
             var renderer = imgSrc.GetHandler();
             var photo = await renderer.LoadImageAsync(imgSrc);
             var documentsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            string jpgFilename = System.IO.Path.Combine(documentsDirectory + "/Pictures", Id + ".jpg");
+            string jpgFilename = System.IO.Path.Combine(documentsDirectory, Id + ".jpg");
             NSData imgData = photo.AsJPEG();
             NSError err = null;
             if (imgData.Save(jpgFilename, false, out err))
@@ -25,16 +27,32 @@ namespace BoilerPlate.iOS.Helpers
                 Console.WriteLine("NOT saved as " + jpgFilename + " because" + err.LocalizedDescription);
             }
         }
-        public string GetPictureFromDisk(string Id)
+        public IEnumerable<string> GetPicturesFromDisk(string id)
         {
             var documentsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
 
-            var url = new NSUrl(new NSString(documentsDirectory + "/Pictures"), true);
             NSError error;
-            var pathContent = NSFileManager.DefaultManager.GetDirectoryContent(new NSString(documentsDirectory + "/Pictures"), out error);
+            var pathContent = NSFileManager.DefaultManager.GetDirectoryContent(new NSString(documentsDirectory), out error);
 
-            string jpgFilename = System.IO.Path.Combine(documentsDirectory + "/Pictures", Id + ".jpg");
-            return jpgFilename;
+            var fileNames = pathContent.Where(s => s.Contains(id)).ToList();
+            var jpgFileLocations = fileNames.Select(s => System.IO.Path.Combine(documentsDirectory, s));
+
+            return jpgFileLocations;
+        }
+        public void RemoveAllPictures(string id)
+        {
+            var documentsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+
+            NSError error;
+            var pathContent = NSFileManager.DefaultManager.GetDirectoryContent(new NSString(documentsDirectory), out error);
+
+            var fileNames = pathContent.Where(s => s.Contains(id)).ToList();
+            var jpgFileLocations = fileNames.Select(s => System.IO.Path.Combine(documentsDirectory, s));
+
+            foreach (var jpgFileLocation in jpgFileLocations)
+            {
+                File.Delete(jpgFileLocation);
+            }
         }
     }
 }

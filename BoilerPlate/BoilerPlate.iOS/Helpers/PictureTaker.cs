@@ -10,10 +10,22 @@ namespace BoilerPlate.iOS.Helpers
         public async void TakePictureFromFile()
         {
             var picker = new MediaPicker();
-            var mediaFile = await picker.PickPhotoAsync();
-            System.Diagnostics.Debug.WriteLine(mediaFile.Path);
-
-            MessagingCenter.Send<IPictureTaker, string>(this, "pictureTaken", mediaFile.Path);
+            if (!picker.PhotosSupported)
+                System.Diagnostics.Debug.WriteLine("No Photos Support!");
+            else
+            {
+                try
+                {
+                    var mediaFile = await picker.PickPhotoAsync();
+                    System.Diagnostics.Debug.WriteLine(mediaFile.Path);
+                    MessagingCenter.Send<IPictureTaker, string>(this, "pictureTaken", mediaFile.Path);
+                }
+                catch (OperationCanceledException)
+                {
+                    System.Diagnostics.Debug.WriteLine("Canceled");
+                }
+            }
+                
         }
         public async void TakePictureFromCamera()
         {
@@ -26,8 +38,8 @@ namespace BoilerPlate.iOS.Helpers
                 {
                     MediaFile file = await picker.TakePhotoAsync(new StoreCameraMediaOptions
                     {
-                        Name = "test.jpg",
-                        Directory = "MediaPickerSample"
+                        Name = "imported.jpg",
+                        Directory = "tmp"
                     });
                     MessagingCenter.Send<IPictureTaker, string>(this, "pictureTaken", file.Path);
 

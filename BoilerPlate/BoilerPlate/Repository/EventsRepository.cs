@@ -35,18 +35,18 @@ namespace BoilerPlate.Repository
             var categoryFav = new Category("Favoriten", Color.Purple);
             return new ObservableCollection<Event>()
             {
-                new Event(1,"Zmorge","In der Mensa", DateTime.UtcNow, categoryFood),
-                new Event(2,"Zmittag","In der Mensa", DateTime.UtcNow, categoryFood),
-                new Event(3,"Znacht","Im Wald", DateTime.UtcNow, categoryFood),
-                new Event(5,"Snowboarden","Beim Berg", DateTime.UtcNow, categorySport),
-                new Event(6,"Minigolf","Wir treffen uns beim Parkplatz", DateTime.UtcNow, categorySport),
-                new Event(7,"Paintball","Wir treffen uns bei der Lounge", DateTime.UtcNow, categoryFun),
-                new Event(8,"Puzzeln","In der Lounge", DateTime.UtcNow, categoryFun),
-                new Event(8,"Hot Tube","Entspannung put", DateTime.UtcNow, categoryRelax),
-                new Event(8,"Tanzen","Ab auf die Tanzfläche - Salsa Baby", DateTime.UtcNow, categoryParty),
-                new Event(8,"Abwaschen","In der Küche", DateTime.UtcNow, categoryMandatory),
-                new Event(8,"Wandern","6 Stunden Wanderung auf Piz Maletsch", DateTime.UtcNow, categoryNatur),
-                new Event(8,"Favoriten","Was dir wichtig ist", DateTime.UtcNow, categoryFav)
+                new Event(1,"Zmorge","In der Mensa", DateTime.UtcNow.AddSeconds(30), categoryFood),
+                new Event(2,"Zmittag","In der Mensa", DateTime.Now.AddSeconds(30), categoryFood),
+                new Event(3,"Znacht","Im Wald", DateTime.UtcNow.AddMinutes(1), categoryFood),
+                new Event(5,"Snowboarden","Beim Berg", DateTime.Now.AddMinutes(1), categorySport),
+                new Event(6,"Minigolf","Wir treffen uns beim Parkplatz", DateTime.UtcNow.AddMinutes(2), categorySport),
+                new Event(7,"Paintball","Wir treffen uns bei der Lounge", DateTime.Now.AddMinutes(2), categoryFun),
+                new Event(8,"Puzzeln","In der Lounge", DateTime.UtcNow.AddMinutes(6), categoryFun),
+                new Event(9,"Hot Tube","Entspannung put", DateTime.UtcNow.AddSeconds(10), categoryRelax),
+                new Event(10,"Tanzen","Ab auf die Tanzfläche - Salsa Baby", DateTime.UtcNow.AddMinutes(247), categoryParty),
+                new Event(11,"Abwaschen","In der Küche", DateTime.UtcNow, categoryMandatory),
+                new Event(12,"Wandern","6 Stunden Wanderung auf Piz Maletsch", DateTime.UtcNow.AddDays(2), categoryNatur),
+                new Event(13,"Favoriten","Was dir wichtig ist", DateTime.UtcNow.AddDays(1), categoryFav)
             };
         }
     }

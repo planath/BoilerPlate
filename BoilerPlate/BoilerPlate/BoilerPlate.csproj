@@ -38,6 +38,7 @@
     <Compile Include="App.cs" />
     <Compile Include="Converter\BoolToCheckImageConverter.cs" />
     <Compile Include="Helper\ILocalPersistanceHelper.cs" />
+    <Compile Include="Helper\INotifyService.cs" />
     <Compile Include="Helper\IPictureSaver.cs" />
     <Compile Include="Helper\IPictureTaker.cs" />
     <Compile Include="Helper\ObservableCollectionExtension.cs" />
@@ -71,6 +72,9 @@
       <DependentUpon>CheckViewCell.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Cell\FancyCell.cs" />
+    <Compile Include="Views\CustomView\EventHeader.xaml.cs">
+      <DependentUpon>EventHeader.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EventDetailPage.xaml.cs">
       <DependentUpon>EventDetailPage.xaml</DependentUpon>
     </Compile>
@@ -191,6 +195,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\EventDetailPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\CustomView\EventHeader.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

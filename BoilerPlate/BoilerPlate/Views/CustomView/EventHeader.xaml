@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="BoilerPlate.Views.CustomView.EventHeader">
+  <ContentView.Content>
+    <RelativeLayout
+      HorizontalOptions="FillAndExpand"
+      VerticalOptions="FillAndExpand">
+      <Image
+        Aspect="AspectFill"
+        Source="{Binding HeaderPicture.FileName}"
+        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=0,Constant=0}"
+        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=0,Constant=0}"
+        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=1,Constant=0}"
+        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=1,Constant=0}"/>
+      <Image
+        Aspect="Fill"
+        Source="eventHeaderLayer"
+        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=0,Constant=0}"
+        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=0,Constant=0}"
+        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=1,Constant=0}"
+        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=1,Constant=0}"/>
+      <BoxView
+        Color="{Binding SelectedEvent.Category.Color}"
+        WidthRequest="6"
+        RelativeLayout.YConstraint="{ConstraintExpression Type=Constant,Constant=0}"
+        RelativeLayout.XConstraint="{ConstraintExpression Type=Constant,Constant=0}"
+        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height}"
+        RelativeLayout.WidthConstraint="{ConstraintExpression Type=Constant,Constant=6}"/>
+      <Label
+        Text="{Binding SelectedEvent.Title}"
+        VerticalTextAlignment="Center"
+        HorizontalOptions="Center"
+        FontSize="38"
+        TextColor="#262323"
+        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=0,Constant=0}"
+        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=0,Constant=0}"
+        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=1,Constant=0}"
+        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=1,Constant=0}">
+        <Label.FontFamily>
+          <OnPlatform x:TypeArguments="x:String">
+            <OnPlatform.iOS>Playfair Display SC</OnPlatform.iOS>
+            <OnPlatform.Android>PlayfairDisplaySC-Bold.otf#Playfair Display SC</OnPlatform.Android>
+            <OnPlatform.WinPhone></OnPlatform.WinPhone>
+          </OnPlatform>
+        </Label.FontFamily>
+      </Label>
+    </RelativeLayout>
+  </ContentView.Content>
+</ContentView>

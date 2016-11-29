@@ -92,9 +92,9 @@
     <Compile Include="FancyiOSCellRenderer.cs" />
     <Compile Include="FlowListViewRenderer.cs" />
     <Compile Include="Helpers\ImageSourceHandlerExtension.cs" />
+    <Compile Include="Helpers\NotifyService.cs" />
     <Compile Include="Helpers\PictureSaver.cs" />
     <Compile Include="Helpers\PictureTaker.cs" />
-    <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="RoundedBoxRenderer.cs" />
@@ -106,6 +106,9 @@
     <ITunesArtwork Include="iTunesArtwork" />
     <ITunesArtwork Include="iTunesArtwork@2x" />
     <None Include="packages.config" />
+    <BundleResource Include="Resources\PlayfairDisplaySC-Bold.otf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </BundleResource>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-568h%402x.png" />
@@ -297,6 +300,18 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\pictureDefault.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\eventHeaderLayer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\iconImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\iconRemove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\iconCamera.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.3.2.127\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.3.2.127\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />

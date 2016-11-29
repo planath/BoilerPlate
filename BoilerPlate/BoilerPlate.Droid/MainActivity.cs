@@ -2,6 +2,7 @@
 using Android.Content;
 using Android.Content.PM;
 using Android.OS;
+using BoilerPlate.Droid.Helpers;
 using BoilerPlate.Helper;
 using GalaSoft.MvvmLight.Ioc;
 using Xamarin.Forms;
@@ -22,6 +23,8 @@ namespace BoilerPlate.Droid
             global::Xamarin.Forms.Forms.Init(this, bundle);
 
             SimpleIoc.Default.Register<IPictureTaker, PictureTaker>();
+            SimpleIoc.Default.Register<IPictureSaver, PictureSaver>();
+            SimpleIoc.Default.Register<INotifyService, NotifyService>(); 
 
             LoadApplication(new App());
         }

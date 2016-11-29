@@ -141,13 +141,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FlowListViewRenderer.cs" />
-    <Compile Include="Helpers\Settings.cs" />
+    <Compile Include="Helpers\AlarmReceiver.cs" />
+    <Compile Include="Helpers\ImageSourceHandlerExtension.cs" />
+    <Compile Include="Helpers\NotifyService.cs" />
+    <Compile Include="Helpers\PictureSaver.cs" />
     <Compile Include="MainActivity.cs" />
-    <Compile Include="PictureTaker.cs" />
+    <Compile Include="Helpers\PictureTaker.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="Assets\PlayfairDisplaySC-Bold.otf" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
@@ -186,6 +190,18 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\pictureDefault.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\eventHeaderLayer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\iconRemove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\iconCamera.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\iconImage.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('..\..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets')" />

@@ -22,20 +22,28 @@ namespace BoilerPlate.Views
             SetBinding(ContentPage.TitleProperty, new Binding("SelectedEvent.Category.Title"));
             this.SetBinding(NavigationPage.BarBackgroundColorProperty, new Binding("SelectedEvent.Category.Color"));
 
-            //TODO: put this code behind for retrieving message into VM
-            MessagingCenter.Subscribe<IPictureTaker, string>(this, "pictureTaken", (sender, arg) =>
-            {
-                Vm.AddPictureCommand.Execute(new Picture(arg));
-            });
-        }
+            imageAction.GestureRecognizers.Add(new TapGestureRecognizer(sender => {
+                imageAction.Opacity = 0.5;
+                imageAction.FadeTo(1);
 
-        private void PictureFromFile_OnClicked(object sender, EventArgs e)
-        {
-            _pictureTaker.TakePictureFromFile();
-        }
-        private void PictureFromCamera_OnClicked(object sender, EventArgs e)
-        {
-            _pictureTaker.TakePictureFromCamera();
+                // Todo: _pictureTaker servce to VM
+                _pictureTaker.TakePictureFromFile();
+            }));
+
+            cameraAction.GestureRecognizers.Add(new TapGestureRecognizer(sender => {
+                cameraAction.Opacity = 0.5;
+                cameraAction.FadeTo(1);
+
+                // Todo: _pictureTaker servce to VM
+                _pictureTaker.TakePictureFromCamera();
+            }));
+
+            removeAction.GestureRecognizers.Add(new TapGestureRecognizer(sender => {
+                removeAction.Opacity = 0.5;
+                removeAction.FadeTo(1);
+
+                Vm.ResetPicturesCommand.Execute(null);
+            }));
         }
     }
 }
