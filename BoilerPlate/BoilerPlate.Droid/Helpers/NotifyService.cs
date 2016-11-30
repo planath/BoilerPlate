@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Android.App;
 using Android.Content;
+using Android.OS;
 using BoilerPlate.Helper;
 using Java.Util;
 using Xamarin.Forms;
@@ -40,7 +41,7 @@ namespace BoilerPlate.Droid.Helpers
 
             if (alertInMillisFromNow > 0)
             {
-                alarmManager.Set(AlarmType.ElapsedRealtimeWakeup, alertInMillisFromNow, pendingIntent);
+                alarmManager.Set(AlarmType.ElapsedRealtime, SystemClock.ElapsedRealtime() + alertInMillisFromNow, pendingIntent);
                 Notifications.Add(identifier, pendingIntent);
             }
         }
@@ -54,13 +55,6 @@ namespace BoilerPlate.Droid.Helpers
                 alarmManager.Cancel(pendingIntent);
                 Notifications.Remove(identifier);
             }
-            //throw new NotImplementedException();
-            //    AlarmManager alarmManager = (AlarmManager)Forms.Context.GetSystemService(Context.AlarmService);
-            //    Intent alarmIntent = new Intent(Forms.Context, typeof(AlarmReceiver));
-            //    PendingIntent pendingIntent = PendingIntent.GetBroadcast(Forms.Context, 1, alarmIntent, 0);
-
-            //alarmManager.Cancel(pendingIntent);
-
         }
     }
 }
