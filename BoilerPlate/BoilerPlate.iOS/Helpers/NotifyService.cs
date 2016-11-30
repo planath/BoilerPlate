@@ -1,35 +1,73 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using BoilerPlate.Helper;
+using BoilerPlate.Model;
 using Foundation;
 using UIKit;
 using UserNotifications;
 
 namespace BoilerPlate.iOS.Helpers
 {
-    class NotifyService : INotifyService
+    public class NotifyService : INotifyService
     {
-        public void Remind(DateTime dateTime, string title, string message)
+        private IDictionary<Event, object> _notifications = new Dictionary<Event, object>();
+        public IDictionary<Event, object> Notifications { get { return _notifications; } set { _notifications = value; } }
+        public int OnDue { get {return Notifications.Keys.Where(e => e.DateTime < DateTime.Now).Count(); } }
+        public void AddNotification(Event participatingEvent)
         {
             AskForNotificationPermission();
-            SetUpNotification(dateTime, title, message);
+            SetUpNotification(participatingEvent);
+        }
+        public void RemoveNotification(Event participatingEvent)
+        {
+            var eventPresentInNotifications = Notifications.Keys.FirstOrDefault(e => e.Id == participatingEvent.Id);
+            if (eventPresentInNotifications != null)
+            {
+                var notificationToCancle = Notifications[eventPresentInNotifications] as UILocalNotification;
+                UIApplication.SharedApplication.CancelLocalNotification(notificationToCancle);
+                Notifications.Remove(eventPresentInNotifications);
+            }
         }
 
-        private static void SetUpNotification(DateTime dateTime, string title, string message)
+        private void SetUpNotification(Event participatingEvent)
+        {
+            var eventPresentInNotifications = Notifications.Keys.FirstOrDefault(e => e.Id == participatingEvent.Id);
+            
+            if (eventPresentInNotifications == null)
+            {
+                CreateNewNotification(participatingEvent);
+            }
+            else if(eventPresentInNotifications.DateTime != participatingEvent.DateTime)
+            {
+                UpdateDateTimeOfPresentNotification(participatingEvent, eventPresentInNotifications);
+            }
+        }
+
+        private void CreateNewNotification(Event participatingEvent)
         {
             var notification = new UILocalNotification();
-            
-            //notification.FireDate = (NSDate) dateTime;
-            notification.FireDate = NSDate.FromTimeIntervalSinceNow(8);
-            notification.AlertAction = title;
-            notification.AlertBody = message;
+            notification.FireDate = (NSDate)participatingEvent.DateTime;
+            notification.AlertAction = participatingEvent.Title;
+            notification.AlertBody = $"Der Event {participatingEvent.Title} startet.";
             notification.SoundName = UILocalNotification.DefaultSoundName;
-            // AppBadge not implemented yet
-            // notification.ApplicationIconBadgeNumber = 1;
-            
+            var howManyEventsAreYouLateTo = OnDue;
+            notification.ApplicationIconBadgeNumber = howManyEventsAreYouLateTo;
+
             UIApplication.SharedApplication.ScheduleLocalNotification(notification);
+            Notifications.Add(participatingEvent, notification);
         }
 
-        private static void AskForNotificationPermission()
+        private void UpdateDateTimeOfPresentNotification(Event participatingEvent, Event eventPresentInNotifications)
+        {
+            var notificationToCancle = Notifications[eventPresentInNotifications] as UILocalNotification;
+            UIApplication.SharedApplication.CancelLocalNotification(notificationToCancle);
+            Notifications.Remove(eventPresentInNotifications);
+
+            SetUpNotification(participatingEvent);
+        }
+        
+        private void AskForNotificationPermission()
         {
             if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0))
             {
@@ -63,5 +101,6 @@ namespace BoilerPlate.iOS.Helpers
                     .RegisterForRemoteNotificationTypes(UIRemoteNotificationType.Alert | UIRemoteNotificationType.Badge);
             }
         }
+
     }
 }
