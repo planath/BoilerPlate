@@ -1,8 +1,11 @@
-﻿using BoilerPlate.Helper;
+﻿using System;
+using BoilerPlate.Helper;
 using BoilerPlate.iOS.Helpers;
 using Foundation;
 using GalaSoft.MvvmLight.Ioc;
 using UIKit;
+using UserNotifications;
+using Xamarin.Forms;
 
 namespace BoilerPlate.iOS
 {
@@ -23,21 +26,6 @@ namespace BoilerPlate.iOS
         {
             global::Xamarin.Forms.Forms.Init();
 
-            // Ask for Notifications
-            UIUserNotificationSettings.GetSettingsForTypes(UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound, null);
-            UIApplication.SharedApplication.RegisterForRemoteNotifications();
-            UIApplication.SharedApplication.RegisterForRemoteNotificationTypes(UIRemoteNotificationType.Alert | UIRemoteNotificationType.Badge);
-
-            //if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0))
-            //{
-            //    UIUserNotificationSettings.GetSettingsForTypes(UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound, null);
-            //    UIApplication.SharedApplication.RegisterForRemoteNotifications();
-            //}
-            //else
-            //{
-            //    UIApplication.SharedApplication.RegisterForRemoteNotificationTypes(UIRemoteNotificationType.Alert | UIRemoteNotificationType.Badge);
-            //}
-
             // DI
             SimpleIoc.Default.Register<IPictureTaker, PictureTaker>();
             SimpleIoc.Default.Register<IPictureSaver, PictureSaver>();
@@ -50,10 +38,11 @@ namespace BoilerPlate.iOS
         public override void ReceivedLocalNotification(UIApplication application, UILocalNotification notification)
         {
             // show an alert
-            UIAlertController okayAlertController = UIAlertController.Create(notification.AlertAction, notification.AlertBody, UIAlertControllerStyle.Alert);
-            okayAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
+            //UIAlertController okayAlertController = UIAlertController.Create(notification.AlertAction, notification.AlertBody, UIAlertControllerStyle.Alert);
+            //okayAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
 
-            Window.RootViewController.PresentViewController(okayAlertController, true, null);
+            var notifyServiceInstance = SimpleIoc.Default.GetInstance<INotifyService>();
+            MessagingCenter.Send<INotifyService, string[]>(notifyServiceInstance, "sentNotification", new string[]{ notification.AlertAction,notification.AlertBody});
 
             // reset our badge
             UIApplication.SharedApplication.ApplicationIconBadgeNumber = 0;

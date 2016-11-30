@@ -1,4 +1,5 @@
-﻿using BoilerPlate.Model;
+﻿using BoilerPlate.Helper;
+using BoilerPlate.Model;
 using BoilerPlate.ViewModel;
 using Xamarin.Forms;
 
@@ -13,6 +14,11 @@ namespace BoilerPlate.Views
             Vm.Init();
             BindingContext = Vm;
             SetBinding(IsPresentedProperty, new Binding("MenuStartMode"));
+            
+            MessagingCenter.Subscribe<INotifyService, string[]>(this, "sentNotification", (sender, arg) =>
+            {
+                DisplayAlert(arg[0], arg[1], "OK");
+            });
         }
 
 
