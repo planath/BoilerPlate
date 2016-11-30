@@ -1,14 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using BoilerPlate.Model;
 
 namespace BoilerPlate.Helper
 {
     public interface INotifyService
     {
-        IDictionary<Event, object> Notifications { get; set; }
-        int OnDue { get; }
-        void AddNotification(Event participatingEvent);
-        void RemoveNotification(Event participatingEvent);
+        /// <summary>
+        /// contains all scheduled notifications with the int identifier, and the notification object (UILocalNotification on iOS).
+        /// </summary>
+        IDictionary<int, object> Notifications { get; }
+        /// <summary>
+        /// int identifier to remove notification later, title and message to show with notification and
+        /// the time when it should be triggered.
+        /// </summary>
+        void AddNotification(int identifier, string title, string message, DateTime scheduledDateTime);
+        /// <summary>
+        /// remove notification by its identifier.
+        /// </summary>
+        void RemoveNotification(int identifier);
     }
 }

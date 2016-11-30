@@ -72,12 +72,12 @@ namespace BoilerPlate.ViewModel
                 if (_participate)
                 {
                     _eventsService.addParticipatingEvent(SelectedEvent.Id);
-                    _notifyService.AddNotification(SelectedEvent);
+                    _notifyService.AddNotification(SelectedEvent.Id, SelectedEvent.Category.Title, SelectedEvent.Title + " startet jetzt.", SelectedEvent.DateTime);
                 }
                 else
                 {
                     _eventsService.removeParticipatingEvent(SelectedEvent.Id);
-                    _notifyService.RemoveNotification(SelectedEvent);
+                    _notifyService.RemoveNotification(SelectedEvent.Id);
                 }
                 RaisePropertyChanged(nameof(Participate));
             }

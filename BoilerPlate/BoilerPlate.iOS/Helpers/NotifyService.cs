@@ -11,60 +11,53 @@ namespace BoilerPlate.iOS.Helpers
 {
     public class NotifyService : INotifyService
     {
-        private IDictionary<Event, object> _notifications = new Dictionary<Event, object>();
-        public IDictionary<Event, object> Notifications { get { return _notifications; } set { _notifications = value; } }
-        public int OnDue { get {return Notifications.Keys.Where(e => e.DateTime < DateTime.Now).Count(); } }
-        public void AddNotification(Event participatingEvent)
+        public IDictionary<int, object> Notifications { get; } = new Dictionary<int, object>();
+        public int OnDue { get {return Notifications.Values.Count(e => (DateTime)(e as UILocalNotification).FireDate < DateTime.Now); } }
+        public void AddNotification(int identifier, string title, string message, DateTime scheduledDateTime)
         {
             AskForNotificationPermission();
-            SetUpNotification(participatingEvent);
+            SetUpNotification(identifier, title, message, scheduledDateTime);
         }
-        public void RemoveNotification(Event participatingEvent)
+        public void RemoveNotification(int identifier)
         {
-            var eventPresentInNotifications = Notifications.Keys.FirstOrDefault(e => e.Id == participatingEvent.Id);
-            if (eventPresentInNotifications != null)
+            if (Notifications.ContainsKey(identifier))
             {
-                var notificationToCancle = Notifications[eventPresentInNotifications] as UILocalNotification;
+                var notificationToCancle = Notifications[identifier] as UILocalNotification;
                 UIApplication.SharedApplication.CancelLocalNotification(notificationToCancle);
-                Notifications.Remove(eventPresentInNotifications);
+                Notifications.Remove(identifier);
             }
         }
 
-        private void SetUpNotification(Event participatingEvent)
+        private void SetUpNotification(int identifier, string title, string message, DateTime scheduledDateTime)
         {
-            var eventPresentInNotifications = Notifications.Keys.FirstOrDefault(e => e.Id == participatingEvent.Id);
-            
-            if (eventPresentInNotifications == null)
+            if (!Notifications.Keys.Contains(identifier))
             {
-                CreateNewNotification(participatingEvent);
+                CreateNewNotification(identifier, title, message, scheduledDateTime);
             }
-            else if(eventPresentInNotifications.DateTime != participatingEvent.DateTime)
+            else if((DateTime)(Notifications[identifier] as UILocalNotification).FireDate != scheduledDateTime)
             {
-                UpdateDateTimeOfPresentNotification(participatingEvent, eventPresentInNotifications);
+                UpdateDateTimeOfPresentNotification(identifier, title, message, scheduledDateTime);
             }
         }
 
-        private void CreateNewNotification(Event participatingEvent)
+        private void CreateNewNotification(int identifier, string title, string message, DateTime scheduledDateTime)
         {
             var notification = new UILocalNotification();
-            notification.FireDate = (NSDate)participatingEvent.DateTime;
-            notification.AlertAction = participatingEvent.Title;
-            notification.AlertBody = $"Der Event {participatingEvent.Title} startet.";
+            notification.FireDate = (NSDate)scheduledDateTime;
+            notification.AlertTitle = title;
+            notification.AlertBody = message;
             notification.SoundName = UILocalNotification.DefaultSoundName;
-            var howManyEventsAreYouLateTo = OnDue;
+            var howManyEventsAreYouLateTo = OnDue + 1;
             notification.ApplicationIconBadgeNumber = howManyEventsAreYouLateTo;
 
             UIApplication.SharedApplication.ScheduleLocalNotification(notification);
-            Notifications.Add(participatingEvent, notification);
+            Notifications.Add(identifier, notification);
         }
 
-        private void UpdateDateTimeOfPresentNotification(Event participatingEvent, Event eventPresentInNotifications)
+        private void UpdateDateTimeOfPresentNotification(int identifier, string title, string message, DateTime scheduledDateTime)
         {
-            var notificationToCancle = Notifications[eventPresentInNotifications] as UILocalNotification;
-            UIApplication.SharedApplication.CancelLocalNotification(notificationToCancle);
-            Notifications.Remove(eventPresentInNotifications);
-
-            SetUpNotification(participatingEvent);
+            RemoveNotification(identifier);
+            SetUpNotification(identifier, title, message, scheduledDateTime);
         }
         
         private void AskForNotificationPermission()
