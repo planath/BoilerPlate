@@ -6,10 +6,6 @@ namespace BoilerPlate.Helper
     public interface INotifyService
     {
         /// <summary>
-        /// contains all scheduled notifications with the int identifier, and the notification object (UILocalNotification on iOS).
-        /// </summary>
-        IDictionary<int, object> Notifications { get; }
-        /// <summary>
         /// int identifier to remove notification later, title and message to show with notification and
         /// the time when it should be triggered.
         /// </summary>

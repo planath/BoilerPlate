@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using BoilerPlate.Helper;
-using BoilerPlate.Model;
 using Foundation;
 using UIKit;
 using UserNotifications;
@@ -11,8 +10,8 @@ namespace BoilerPlate.iOS.Helpers
 {
     public class NotifyService : INotifyService
     {
-        public IDictionary<int, object> Notifications { get; } = new Dictionary<int, object>();
-        public int OnDue { get {return Notifications.Values.Count(e => (DateTime)(e as UILocalNotification).FireDate < DateTime.Now); } }
+        public IDictionary<int, UILocalNotification> Notifications { get; } = new Dictionary<int, UILocalNotification>();
+        public int OnDue { get {return Notifications.Values.Count(e => (DateTime)e.FireDate < DateTime.Now); } }
         public void AddNotification(int identifier, string title, string message, DateTime scheduledDateTime)
         {
             AskForNotificationPermission();
@@ -22,7 +21,7 @@ namespace BoilerPlate.iOS.Helpers
         {
             if (Notifications.ContainsKey(identifier))
             {
-                var notificationToCancle = Notifications[identifier] as UILocalNotification;
+                var notificationToCancle = Notifications[identifier];
                 UIApplication.SharedApplication.CancelLocalNotification(notificationToCancle);
                 Notifications.Remove(identifier);
             }
@@ -34,7 +33,7 @@ namespace BoilerPlate.iOS.Helpers
             {
                 CreateNewNotification(identifier, title, message, scheduledDateTime);
             }
-            else if((DateTime)(Notifications[identifier] as UILocalNotification).FireDate != scheduledDateTime)
+            else if((DateTime)Notifications[identifier].FireDate != scheduledDateTime)
             {
                 UpdateDateTimeOfPresentNotification(identifier, title, message, scheduledDateTime);
             }

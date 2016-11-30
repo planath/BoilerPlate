@@ -9,7 +9,6 @@ namespace BoilerPlate.Droid.Helpers
     {
         public override void OnReceive(Context context, Intent intent)
         {
-
             var message = intent.GetStringExtra("message");
             var title = intent.GetStringExtra("title");
 
